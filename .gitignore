@@ -1,7 +1,2 @@
-$ git status
-[...]
-# Untracked files:
-[...]
-    #       apikey.txt
-    #       .gitignore
-[...]
+git config --global core.excludesFile ~/.gitignore
+git config --global core.excludesFile ~/apikey.txt
