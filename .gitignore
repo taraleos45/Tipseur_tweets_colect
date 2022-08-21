@@ -1,2 +1,7 @@
-!.gitignore
-!apikey.txt
+$ git status
+[...]
+# Untracked files:
+[...]
+    #       apikey.txt
+    #       .gitignore
+[...]
