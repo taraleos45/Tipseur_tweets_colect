@@ -35,7 +35,7 @@ client = tweepy.Client(beared,return_type = requests.Response) #api_key,api_secr
 #re = client.get_liked_tweets('1104882393557712896',max_results=5)
 #client.retweet('1556267441650540551', user_auth=False)
 df = pd.read_excel ('tipseur_twitter_id.xlsx')
-id_requete = 1
+id_requete = 5
 dernier_id = int(df['dernier_id_requete'][id_requete])
 
 requete = df['str_requette'][id_requete]
