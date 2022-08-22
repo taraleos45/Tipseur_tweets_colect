@@ -14,7 +14,7 @@ from jsonmerge import merge
 from jsonmerge import Merger
 import pandas as pd
 #pd.set_option('display.int_format', lambda x: '%.9f' % x)
- 
+pd.options.display.float_format = '{:,.0f}'.format
 # API keyws that yous saved earlier
 apifile = open("apikey.txt", "r",encoding="utf-8")
 beared = apifile.readlines()[0]
@@ -35,7 +35,9 @@ client = tweepy.Client(beared,return_type = requests.Response) #api_key,api_secr
 #re = client.get_liked_tweets('1104882393557712896',max_results=5)
 #client.retweet('1556267441650540551', user_auth=False)
 df = pd.read_excel ('tipseur_twitter_id.xlsx')
-id_requete = 5
+print('numéro de requête : ')
+id_requete = int(input())
+#id_requete = 4 #0,1,2,4,5
 dernier_id = int(df['dernier_id_requete'][id_requete])
 
 requete = df['str_requette'][id_requete]
@@ -44,13 +46,14 @@ file_name = str(nom_tip)+".json"
 #print(df['str_requette'])
 
 #search = client.search_recent_tweets('"zufygzeuygfuerzf" -is:reply -is:retweet lang:fr',max_results=10,tweet_fields=["public_metrics"])
-search = client.search_recent_tweets(requete,max_results=10) #since_id=dernier_id
+search = client.search_recent_tweets(requete,max_results=10,since_id=dernier_id) #since_id=dernier_id
 #print(search.json())
 search_json = search.json()
 if search_json['meta']['result_count'] != 0:
     print('Data found '+ str(search_json['meta']['result_count'])+ " Tweets")
     newest_id = search_json['meta']['newest_id']
-    df.at[id_requete,'dernier_id_requete'] = newest_id
+    df.at[id_requete,'dernier_id_requete'] = str(newest_id)
+    df['dernier_id_requete'] = df['dernier_id_requete'].astype(str)
     df.to_excel("tipseur_twitter_id.xlsx", sheet_name="new",index=False)
 
 #g = open("test.txt","w",encoding="utf-8")
@@ -74,7 +77,7 @@ if search_json['meta']['result_count'] != 0:
 else:
     print('No data found')
 
-
+print('data_imported')
 
 #◘g.write('tu veux voir ma bite')
 
